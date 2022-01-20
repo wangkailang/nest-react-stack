@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { HttpInterceptor } from './http.interceptor';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +16,11 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  app.useGlobalInterceptors(new HttpInterceptor());
+
+  app.enableCors({ origin: true, credentials: true }); // 允许跨域和传递cookie
+  app.use(cookieParser()); // cookie 格式化插件
+
+  await app.listen(3001);
 }
 bootstrap();
