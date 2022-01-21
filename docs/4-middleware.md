@@ -23,7 +23,7 @@ app.use(cookieParser());
 通过 nest cli middleware 新建 cookie 中间件
 
 ```
-nest g mi cookie --no-spec
+nx g @nrwl/nest:middleware cookie
 ```
 
 修改 `src/cookie.middleware.ts` 文件，不存在 cookies 时抛出异常：

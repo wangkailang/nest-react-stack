@@ -1,11 +1,11 @@
-## 安装
+## 开始后端服务
 
-全局安装 nestjs cli 工具并初始化项目 `nest-react-stack`
+安装 nest 依赖，并通过 nx generate 新建 backend 应用
 
 ```bash
-npm i -g @nestjs/cli
+yarn add -D @nrwl/nest
 
-nest new nest-react-stack
+nx g @nrwl/nest:application backend
 ```
 
 ### 控制器
