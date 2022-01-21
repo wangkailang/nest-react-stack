@@ -18,7 +18,7 @@ npx prisma init --datasource-provider sqlite
 通过 nestjs cli 提供的 resource 新建一个 books 的 CURD 资源
 
 ```bash
-nest g res books
+nx g @nrwl/nest:resource books
 ```
 
 ### 指定 books 表的数据结构
