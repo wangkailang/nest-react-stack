@@ -10,16 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id String @id @unique @default(uuid())
-  userName String @unique @map("user_name")
-  nickName String @default("") @map("nick_name")
-  createAt DateTime @default(now()) @map("create_at")
-  updateAt DateTime @updatedAt @map("update_at")
-
-  @@map("users")
-}
-
 model book {
   id String @id @unique @default(uuid())
   title String @default("")
