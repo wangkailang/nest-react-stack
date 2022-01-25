@@ -3,14 +3,20 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "backend:start": "yarn nx serve backend"
+    "be": "yarn nx serve backend",
+    "fe": "yarn nx serve frontend"
   },
   "private": true,
   "dependencies": {
+    "@mui/icons-material": "^5.3.1",
+    "@mui/material": "^5.3.1",
+    "@mui/styled-engine-sc": "^5.3.0",
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@prisma/client": "^3.8.1",
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.6.5",
     "react": "17.0.2",
@@ -20,7 +26,7 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.0.0",
-    "styled-components": "5.3.3",
+    "styled-components": "^5.3.3",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
