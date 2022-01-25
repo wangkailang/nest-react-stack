@@ -10,11 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model book {
-  id String @id @unique @default(uuid())
-  title String @default("")
-  author String @default("")
-  price Float @default(0)
+model User {
+  id       String  @id @unique @default(uuid())
+  name     String  @unique
+  nickName String  @default("") @map("nick_name")
+  password String
+  email    String?
+  books    Book[]
+  posts    Post[]
+
+  @@map("users")
+}
+
+model Book {
+  id     String  @id @unique @default(uuid())
+  title  String  @default("")
+  author String  @default("")
+  price  Float   @default(0)
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
 
   @@map("books")
+}
+
+model Post {
+  id      String  @id @unique @default(uuid())
+  title   String  @default("")
+  content String? @default("")
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String? @map("user_id")
+
+  @@map("posts")
 }
