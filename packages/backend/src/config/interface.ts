@@ -1,4 +1,5 @@
 export interface Config {
+  secret: string;
   security: SecurityConfig;
 }
 

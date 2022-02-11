@@ -1,7 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from '../password/password.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { JwtDto } from './dto/jwt.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -9,12 +11,12 @@ export class UsersService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly passwordService: PasswordService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     const hashPassword = await this.passwordService.hashPassword(createUserDto.password);
 
-    console.log('========', createUserDto);
     try {
       return await this.prismaService.user.create({
         data: {
@@ -53,7 +55,7 @@ export class UsersService {
   }
 
   // 参考 https://github.com/notiz-dev/nestjs-prisma-starter/blob/main/src/services/auth.service.ts
-  async login(name: string, password: string): Promise<any> {
+  async login(name: string, password: string): Promise<{ access_token: string }> {
     const user = await this.prismaService.user.findUnique({
       where: { name }
     });
@@ -71,7 +73,13 @@ export class UsersService {
       throw new BadRequestException('Invalid password');
     }
 
-    return user;
+    return {
+      access_token: this.generateAccessToken({ username: user.name, sub: user.id })
+    };
 
+  }
+
+  private generateAccessToken(userDto: JwtDto): string {
+    return this.jwtService.sign(userDto);
   }
 }

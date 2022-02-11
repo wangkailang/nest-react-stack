@@ -9,7 +9,21 @@ export const Login = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log('data', data.get('name'), data.get('password'));
+    fetch('http://localhost:3333/api/users/login', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        name: data.get('name'),
+        password: data.get('password'),
+      }),
+      credentials: 'include', // 允许服务器传递cookie过来
+    })
+    .then((res) => res.json())
+    .then((res) => console.log(res));
+
   }
   return (
     <Container component="main" maxWidth="xs">
