@@ -1,7 +1,10 @@
 import styled from 'styled-components';
-import NxWelcome from './nx-welcome';
 
 import { Route, Link } from 'react-router-dom';
+import { Home } from './home';
+import { Login } from './login';
+import { SignUp } from './signup';
+import { Users } from './users';
 
 const StyledApp = styled.div`
   // Your style here
@@ -10,21 +13,19 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <NxWelcome title="frontend" />
-
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
       <div role="navigation">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">首页</Link>
           </li>
           <li>
-            <Link to="/page-2">Page 2</Link>
+            <Link to="/users">用户列表</Link>
+          </li>
+          <li>
+            <Link to="/login">登录</Link>
+          </li>
+          <li>
+            <Link to="/sign-up">注册</Link>
           </li>
         </ul>
       </div>
@@ -32,19 +33,28 @@ export function App() {
         path="/"
         exact
         render={() => (
-          <div>
-            This is the generated root route.{' '}
-            <Link to="/page-2">Click here for page 2.</Link>
-          </div>
+          <Home/>
         )}
       />
       <Route
-        path="/page-2"
+        path="/users"
         exact
         render={() => (
-          <div>
-            <Link to="/">Click here to go back to root page.</Link>
-          </div>
+          <Users />
+        )}
+      />
+      <Route
+        path="/login"
+        exact
+        render={() => (
+          <Login/>
+        )}
+      />
+      <Route
+        path="/sign-up"
+        exact
+        render={() => (
+          <SignUp/>
         )}
       />
       {/* END: routes */}
